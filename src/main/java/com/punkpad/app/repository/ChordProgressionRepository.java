@@ -1,11 +1,11 @@
 package com.punkpad.app.repository;
 
-import com.punkpad.app.entity.ChordProgression;
-import com.punkpad.app.model.ChordProgression;
+import com.punkpad.app.ChordProgression;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public class ChordProgressionRepository extends JpaRepository<ChordProgression, Long> {
+public interface ChordProgressionRepository extends JpaRepository<ChordProgression, Long> {
 
     List<ChordProgression> findUserId(Long userId);
 

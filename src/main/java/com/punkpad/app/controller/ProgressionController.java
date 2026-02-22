@@ -2,10 +2,7 @@ package com.punkpad.app.controller;
 
 import com.punkpad.app.model.ChordProgression;
 import com.punkpad.app.repository.ChordProgressionRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("")
@@ -15,9 +12,24 @@ public class ProgressionController {
     public ProgressionController(ChordProgressionRepository chordProgressionRepository) {
         this.chordProgressionRepository = chordProgressionRepository;
     }
-
+    //GET all progressions
+    @GetMapping
+    public List<ChordProgression> getAllProgressions() {
+        return chordProgressionRepository.findAll();
+    }
+    //GET progessions by user id
     @GetMapping("/user/{userId}")
     public List<ChordProgression> getProgressionsByUserId(@PathVariable Long userId) {
         return chordProgressionRepository.findUserId(userId);
     }
-@PostMapping
+    //POST save new progression
+    @PostMapping
+    public ChordProgression createProgression(@RequestBody ChordProgression progression) {
+        return chordProgressionRepository.save(progression);
+    }
+    //DELETE progression by id
+    @DeleteMapping("/{id}")
+    public void deleteProgression(@PathVariable Long id) {
+        chordProgressionRepository.deleteById(id);
+    }
+}
