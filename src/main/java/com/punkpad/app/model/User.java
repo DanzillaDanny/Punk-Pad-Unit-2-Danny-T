@@ -1,4 +1,4 @@
-package model;
+package com.punkpad.app.model;
 
 import jakarta.persistence.*;
 
