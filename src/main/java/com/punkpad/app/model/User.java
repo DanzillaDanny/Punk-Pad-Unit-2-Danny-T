@@ -1,5 +1,7 @@
 package com.punkpad.app.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
