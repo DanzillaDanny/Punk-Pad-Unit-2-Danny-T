@@ -19,7 +19,7 @@ public class ChordProgression {
 
     private String title;
 
-    private String key;
+    private String musicalKey;
 
     private Integer tempo;
 
@@ -45,7 +45,7 @@ public class ChordProgression {
     }
 
     public String getKey() {
-        return key;
+        return musicalKey;
     }
 
     public Integer getTempo() {
@@ -73,7 +73,7 @@ public class ChordProgression {
     }
 
     public void setKey(String key) {
-        this.key = key;
+        this.musicalKey = musicalKey;
     }
 
     public void setTempo(Integer tempo) {
