@@ -14,12 +14,20 @@ public class Genre {
     private String name;
 
     public Genre() {
-    this.name = name;
+        this.name = name;
     }
 
     private Long getId() {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
 
 }
