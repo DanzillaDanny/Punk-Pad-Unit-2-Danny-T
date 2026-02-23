@@ -22,7 +22,7 @@ public class ProgressionController {
     //GET progessions by user id
     @GetMapping("/user/{userId}")
     public List<ChordProgression> getProgressionsByUserId(@PathVariable Long userId) {
-        return chordProgressionRepository.findUserId(userId);
+        return chordProgressionRepository.findByUser_Id(userId);
     }
     //POST save new progression
     @PostMapping

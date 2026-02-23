@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface ChordProgressionRepository extends JpaRepository<ChordProgression, Long> {
 
-    List<ChordProgression> findUserId(Long userId);
+    List<ChordProgression> findByUser_Id(Long userId);
 
 }
