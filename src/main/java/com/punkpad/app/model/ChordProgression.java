@@ -1,12 +1,18 @@
 package com.punkpad.app.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
 public class ChordProgression {
-    this.key = key;
-    this.chords = new ArrayList<>();
-    this.genre = genre;
-    this.subGenre = subGenre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
+        private String key;
+
+      @ManyToOne
+        private Genre genre;
+
+      @ManyToOne
+        private SubGenre subGenre;
 }
