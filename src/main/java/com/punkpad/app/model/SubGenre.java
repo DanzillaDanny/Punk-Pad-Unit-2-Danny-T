@@ -9,9 +9,6 @@ public class SubGenre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String genres;
-    private String description;
-
     @Column(nullable = false, length = 50)
     private String name;
 

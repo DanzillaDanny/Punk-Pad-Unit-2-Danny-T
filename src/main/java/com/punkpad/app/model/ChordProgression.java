@@ -28,7 +28,7 @@ public class ChordProgression {
 
     @ManyToOne
     @JoinColumn(name = "sub_genre_id", nullable = false)
-    private Subgenre subGenre;
+    private SubGenre subGenre;
 
     @OneToMany(mappedBy = "progression", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Chords> chords;
@@ -55,7 +55,7 @@ public class ChordProgression {
         return user;
     }
 
-    public Subgenre getSubGenre() {
+    public SubGenre getSubGenre() {
         return subGenre;
     }
 
@@ -83,7 +83,7 @@ public class ChordProgression {
         this.user = user;
     }
 
-    public void setSubGenre(Subgenre subGenre) {
+    public void setSubGenre(SubGenre subGenre) {
         this.subGenre = subGenre;
     }
 
