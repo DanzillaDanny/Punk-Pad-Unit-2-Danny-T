@@ -10,7 +10,16 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true, length = 50)
     private String name;
-    private int positionIndex;
+
+    public Genre() {
+    this.name = name;
+    }
+
+    private Long getId() {
+        return id;
+    }
+
 
 }
