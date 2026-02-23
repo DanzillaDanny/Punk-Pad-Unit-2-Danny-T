@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "chord_progressions")
 public class ChordProgression {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
