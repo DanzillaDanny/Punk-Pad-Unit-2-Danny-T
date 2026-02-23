@@ -28,10 +28,47 @@ public class ChordProgression {
 
       @ManyToOne
       @JoinColumn(name = "sub_genre_id" , nullable = false)
-        private User subGenre;
+        private Subgenre subGenre;
 
       @OneToMany(mappedBy = "progression", cascade = CascadeType.ALL, orphanRemoval = true)
         private List<Chords> chords;
 
       private LocalDateTime createdAt = LocalDateTime.now();
+
+    public Long getId() {
+        return id;
+    }
+
+public String getTitle() {
+    return title;
+}
+
+public String getKey() {
+    return key;
+}
+
+public Integer getTempo() {
+    return tempo;
+}
+
+public User getUser() {
+    return user;
+}
+
+public Subgenre getSubGenre() {
+    return subGenre;
+}
+
+public List<Chords> getChords() {
+    return chords;
+}
+
+public LocalDateTime getCreatedAt() {
+    return createdAt;
+}
+
+
+
+
+    }
 }
