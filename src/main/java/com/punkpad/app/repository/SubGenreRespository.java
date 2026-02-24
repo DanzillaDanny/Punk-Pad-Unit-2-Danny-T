@@ -1,4 +1,14 @@
 package com.punkpad.app.repository;
 
-public class SubGenreRespository {
+import com.punkpad.app.model.SubGenre;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface SubGenreRespository extends JpaRepository<SubGenre,Long> {
+
+    List<SubGenre> findByGenreId(Long genreId);
+
 }

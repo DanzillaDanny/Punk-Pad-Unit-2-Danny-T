@@ -3,6 +3,7 @@ package com.punkpad.app.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name= "sub_genres")
 public class SubGenre {
 
     @Id
