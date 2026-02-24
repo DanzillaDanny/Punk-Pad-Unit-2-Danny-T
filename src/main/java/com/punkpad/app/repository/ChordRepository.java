@@ -1,4 +1,12 @@
 package com.punkpad.app.repository;
 
-public class ChordRepository {
+import com.punkpad.app.model.Chords;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ChordRepository {
+    List<Chords> findByProgressionId(Long progressionId);
 }
