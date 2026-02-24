@@ -1,4 +1,9 @@
 package com.punkpad.app.repository;
 
-public class GenreRepository {
+import com.punkpad.app.model.Genre;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface GenreRepository extends JpaRepository<Genre, Long> {
 }

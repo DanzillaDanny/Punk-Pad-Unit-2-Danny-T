@@ -1,9 +1,30 @@
 package com.punkpad.app.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.punkpad.app.model.Genre;
+import com.punkpad.app.repository.GenreRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/api/genres")
 public class GenreController {
+
+    private final GenreRepository genreRepository;
+
+    public GenreController(GenreRepository genreRepository) {
+        this.genreRepository = genreRepository;
+    }
+
+    @GetMapping
+    public List<Genre> getAllGenres() {
+        return genreRepository.findAll();
+    }
+
+    @PostMapping
+    public Genre createGenre(@RequestBody Genre genre) {
+        return genreRepository.save(genre);
+    }
 }
+
+
