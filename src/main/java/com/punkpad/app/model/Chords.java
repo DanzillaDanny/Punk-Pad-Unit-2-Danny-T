@@ -35,6 +35,10 @@ public class Chords {
         this.name = name;
     }
 
+    public int getPositionIndex() {
+        return positionIndex;
+    }
+
     public void setPositionIndex(int positionIndex) {
         this.positionIndex = positionIndex;
     }
