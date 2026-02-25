@@ -4,35 +4,40 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="chords")
-public class Chords {
+public class Chord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-    @Column(nullable=false, length=10)
-    private String name;
+    @Column(nullable=false)
+    private String chordName;
 
-    @Column(name = "position_index", nullable = false)
+    @Column(nullable = false)
     private int positionIndex;
 
     @ManyToOne
     @JoinColumn(name = "progression_id", nullable = false)
     private ChordProgression progression;
 
-    public Chords(){
+    public Chord(){
 
     }
+    public Chord(String chordName, int positionIndex) {
+        this.chordName = chordName;
+        this.positionIndex = positionIndex;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getChordName() {
+        return chordName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setChordName(String name) {
+        this.chordName = chordName;
     }
 
     public int getPositionIndex() {

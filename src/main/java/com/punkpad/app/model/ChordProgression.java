@@ -1,27 +1,23 @@
 package com.punkpad.app.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "chord_progressions")
 public class ChordProgression {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String musicalKey;
-
-    private Integer tempo;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -31,9 +27,12 @@ public class ChordProgression {
     @JoinColumn(name = "sub_genre_id", nullable = false)
     private SubGenre subGenre;
 
-    @OneToMany(mappedBy = "progression", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Chords> chords;
 
+    @OrderBy("positionIndex ASC")
+    @OneToMany(mappedBy = "progression", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chord> chords = new ArrayList<>();
+
+    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Long getId() {
@@ -44,13 +43,10 @@ public class ChordProgression {
         return title;
     }
 
-    public String getKey() {
+    public String getMusicalKeyKey() {
         return musicalKey;
     }
 
-    public Integer getTempo() {
-        return tempo;
-    }
 
     public User getUser() {
         return user;
@@ -60,7 +56,7 @@ public class ChordProgression {
         return subGenre;
     }
 
-    public List<Chords> getChords() {
+    public List<Chord> getChords() {
         return chords;
     }
 
@@ -72,12 +68,8 @@ public class ChordProgression {
         this.title = title;
     }
 
-    public void setKey(String key) {
+    public void setMusicalKey(String musicalKey) {
         this.musicalKey = musicalKey;
-    }
-
-    public void setTempo(Integer tempo) {
-        this.tempo = tempo;
     }
 
     public void setUser(User user) {
@@ -88,7 +80,7 @@ public class ChordProgression {
         this.subGenre = subGenre;
     }
 
-    public void setChords(List<Chords> chords) {
+    public void setChords(List<Chord> chords) {
         this.chords = chords;
     }
 }
