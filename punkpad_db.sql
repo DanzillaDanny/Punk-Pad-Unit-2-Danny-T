@@ -1,2 +1,3 @@
-DELETE FROM sub_genres WHERE name IS NULL;
+SELECT * FROM genres;
+SELECT * FROM sub_genres;
 

@@ -7,7 +7,7 @@ import com.punkpad.app.repository.ChordProgressionRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/progressions")
 public class ProgressionController {
     private final ChordProgressionRepository chordProgressionRepository;
 
@@ -19,7 +19,7 @@ public class ProgressionController {
     public List<ChordProgression> getAllProgressions() {
         return chordProgressionRepository.findAll();
     }
-    //GET progessions by user id
+    //GET progressions by user id
     @GetMapping("/user/{userId}")
     public List<ChordProgression> getProgressionsByUserId(@PathVariable Long userId) {
         return chordProgressionRepository.findByUser_Id(userId);
