@@ -11,44 +11,49 @@ public class Chord {
         private Long id;
 
     @Column(nullable=false)
-    private String chordName;
+    private String rootNote;
 
     @Column(nullable = false)
-    private int positionIndex;
+    private String quality;
 
     @ManyToOne
     @JoinColumn(name = "progression_id", nullable = false)
-    private ChordProgression progression;
+    private String displayName;
 
     public Chord(){
 
     }
     public Chord(String chordName, int positionIndex) {
-        this.chordName = chordName;
-        this.positionIndex = positionIndex;
+        this.rootNote = rootNote;
+        this.quality = quality;
+        this.displayName = displayName;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getChordName() {
-        return chordName;
+    public String getRootNote() {
+        return rootNote;
     }
 
-    public void setChordName(String name) {
-        this.chordName = chordName;
+    public String getQuality() {
+        return quality;
     }
 
-    public int getPositionIndex() {
-        return positionIndex;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setPositionIndex(int positionIndex) {
-        this.positionIndex = positionIndex;
+    public void setRootNote(String rootNote) {
+        this.rootNote = rootNote;
     }
 
-    public void setProgression(ChordProgression progression) {
-        this.progression = progression;
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }
