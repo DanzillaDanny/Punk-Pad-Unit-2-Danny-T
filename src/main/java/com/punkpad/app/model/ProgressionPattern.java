@@ -25,11 +25,6 @@ public class ProgressionPattern {
     @JoinColumn(name = "sub_genre_id", nullable = false)
     private SubGenre subGenre;
 
-
-    @ManyToOne
-    @JoinColumn(name = "pattern_id", nullable = false)
-    private ProgressionPattern pattern;
-
     public Long getId() {
         return id;
     }

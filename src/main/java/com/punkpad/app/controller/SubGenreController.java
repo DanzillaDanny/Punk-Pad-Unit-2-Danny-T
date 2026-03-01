@@ -4,20 +4,20 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 import com.punkpad.app.model.SubGenre;
-import com.punkpad.app.repository.SubGenreRespository;
+import com.punkpad.app.repository.SubGenreRepository;
 
 @RestController
 @RequestMapping("/genres/{genreId}/subgenres")
 public class SubGenreController {
 
-    private final SubGenreRespository subGenreRespository;
+    private final SubGenreRepository subGenreRepository;
 
-    public SubGenreController(SubGenreRespository subGenreRespository) {
-        this.subGenreRespository = subGenreRespository;
+    public SubGenreController(SubGenreRepository subGenreRepository) {
+        this.subGenreRepository = subGenreRepository;
     }
 
     @GetMapping
     public List<SubGenre> getSubGenresByGenre(@RequestParam Long genreId) {
-        return subGenreRespository.findByGenreId(genreId);
+        return subGenreRepository.findByGenreId(genreId);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SubGenreRespository extends JpaRepository<SubGenre,Long> {
+public interface SubGenreRepository extends JpaRepository<SubGenre,Long> {
 
     List<SubGenre> findByGenreId(Long genreId);
     Optional<SubGenre>findByName(String name);
