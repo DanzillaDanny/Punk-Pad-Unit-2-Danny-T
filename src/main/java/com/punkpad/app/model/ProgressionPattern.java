@@ -26,9 +26,9 @@ public class ProgressionPattern {
     private SubGenre subGenre;
 
 
-    @OneToMany(mappedBy = "pattern", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("stepOrder ASC")
-    private List<ProgressionPatternStep> steps = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "pattern_id", nullable = false)
+    private ProgressionPattern pattern;
 
     public Long getId() {
         return id;

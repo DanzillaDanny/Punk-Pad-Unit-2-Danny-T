@@ -21,8 +21,8 @@ public class ProgressionPatternStep {
     private String quality;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
-    private ProgressionPattern progressionPattern;
+    @JoinColumn(name = "pattern_id", nullable = false)
+    private ProgressionPattern pattern;
 
     public ProgressionPatternStep() {}
 
@@ -58,6 +58,6 @@ public void setQuality(String quality) {
     this.quality = quality;
 }
 public void setPattern(ProgressionPattern pattern) {
-    this.progressionPattern = pattern;
+    this.pattern = pattern;
     }
 }

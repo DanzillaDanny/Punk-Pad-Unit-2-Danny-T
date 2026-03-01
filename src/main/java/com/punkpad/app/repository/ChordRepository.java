@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository
 public interface ChordRepository extends JpaRepository<ChordProgression, Long> {
-    List<Chord> findByProgression_Id(Long progressionId);
 }

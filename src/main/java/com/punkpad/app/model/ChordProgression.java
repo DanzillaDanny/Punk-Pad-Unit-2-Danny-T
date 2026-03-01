@@ -28,8 +28,13 @@ public class ChordProgression {
     private SubGenre subGenre;
 
 
-    @OrderBy("positionIndex ASC")
-    @OneToMany(mappedBy = "progression", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany
+    @JoinTable(
+            name = "progression_chords",
+            joinColumns = @JoinColumn(name = "progression_id"),
+            inverseJoinColumns = @JoinColumn(name = "chord_id")
+    )
+    @OrderColumn(name = "position_index")
     private List<Chord> chords = new ArrayList<>();
 
     @Column(nullable = false)

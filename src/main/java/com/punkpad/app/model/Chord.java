@@ -16,13 +16,10 @@ public class Chord {
     @Column(nullable = false)
     private String quality;
 
-    @ManyToOne
-    @JoinColumn(name = "progression_id", nullable = false)
+    @JoinColumn(nullable = false, unique = true)
     private String displayName;
 
-    public Chord(){
-
-    }
+    public Chord(){}
     public Chord(String chordName, int positionIndex) {
         this.rootNote = rootNote;
         this.quality = quality;
