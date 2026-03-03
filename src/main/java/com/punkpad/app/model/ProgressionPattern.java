@@ -13,13 +13,13 @@ public class ProgressionPattern {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String name; // name is used to identify the pattern, for example "I-IV-V" or "ii-V-I"
 
     @Column(nullable = false)
-    private String mode;
+    private String mode; // mode is used to determine which chords can be used in this pattern, for example "major" would allow chords from the major scale, "minor" would allow chords from the minor scale, "dorian" would allow chords from the dorian mode, etc.
 
     @Column(nullable = false)
-    private int weight = 10;
+    private int weight = 10; // weight is used to determine how often this pattern should be selected when generating progressions 10 is the default weight, higher means more likely to be selected
 
     @ManyToOne
     @JoinColumn(name = "sub_genre_id", nullable = false)

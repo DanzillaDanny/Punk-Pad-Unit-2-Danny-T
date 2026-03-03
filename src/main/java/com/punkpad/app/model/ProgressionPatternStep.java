@@ -11,14 +11,14 @@ public class ProgressionPatternStep {
     private Long id;
 
     @Column(nullable = false)
-    private int stepOrder;
+    private int stepOrder; // ensures the notes stay in the correct order when saved or retrieved from a database.
 
     @Column(nullable = false)
-    private int degree;
+    private int degree; // 1-7 representing the scale degree (I, II, III, IV, V, VI, VII)
 
     private String accidental; // e.g., "#", "b", or natural (null or empty)
 
-    private String quality;
+    private String quality; // "maj", "min"
 
     @ManyToOne
     @JoinColumn(name = "pattern_id", nullable = false)
