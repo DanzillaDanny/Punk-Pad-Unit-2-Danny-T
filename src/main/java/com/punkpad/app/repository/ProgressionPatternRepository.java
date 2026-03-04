@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ProgressionPatternRepository extends JpaRepository<ProgressionPattern, Long> {
 
-    List<ProgressionPattern> findBySubGenre(Long subGenreId);
+    List<ProgressionPattern> findBySubGenre_Id(Long subGenre_Id);
 }

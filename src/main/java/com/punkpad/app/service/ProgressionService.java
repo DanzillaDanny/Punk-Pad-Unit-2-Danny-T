@@ -21,7 +21,7 @@ public class ProgressionService {
     }
 
     public List<String> generateProgression(Long subGenreId, String musicalKey) {
-        List<ProgressionPattern> patterns = patternRepository.findBySubGenreId(subGenreId);
+        List<ProgressionPattern> patterns = patternRepository.findBySubGenre_Id(subGenreId);
         if (patterns.isEmpty()) {
             throw new RuntimeException("No patterns found");
         }
@@ -65,7 +65,7 @@ public class ProgressionService {
 
         List<String> chromatic = List.of("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B");
         int index = chromatic.indexOf(note);
-        if (accidental.equals("b"))
+        if (accidental.equals("b")) {
             return chromatic.get((index + 11) % 12);
     }
     if (accidental.equals("#")) {
