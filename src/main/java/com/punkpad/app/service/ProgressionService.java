@@ -39,7 +39,7 @@ public class ProgressionService {
         return chords;
     }
     private List<String> buildMajorScale(String root) {
-        List<String> chromatic = List.of("C","C#", "D", "D#", "E", "F", "G", "G#", "A", "A#", "B");
+        List<String> chromatic = List.of("C","C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B");
 
         int start = chromatic.indexOf(root);
 
