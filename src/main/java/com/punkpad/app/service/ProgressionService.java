@@ -73,3 +73,16 @@ public class ProgressionService {
     }
     return note;
 }
+private String applyQuality(String note, String quality) {
+
+    if (quality == null) {
+        return note;
+    }
+
+    if (quality.equals("min")) {
+        return note + "m";
+    }
+
+    return note;
+}
+}
