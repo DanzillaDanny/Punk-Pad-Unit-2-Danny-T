@@ -17,7 +17,7 @@ public class SubGenreController {
     }
 
     @GetMapping
-    public List<SubGenre> getSubGenresByGenre(@RequestParam Long genreId) {
+    public List<SubGenre> getSubGenresByGenre(@PathVariable Long genreId) {
         return subGenreRepository.findByGenreId(genreId);
     }
 }
