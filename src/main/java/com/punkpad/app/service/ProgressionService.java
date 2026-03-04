@@ -55,4 +55,21 @@ public class ProgressionService {
         }
         return scale;
     }
+    private String resolveDegree(List<String> scale, int degree, String accidental) {
+
+        String note = scale.get(degree - 1);
+
+        if (accidental == null) {
+            return note;
+        }
+
+        List<String> chromatic = List.of("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B");
+        int index = chromatic.indexOf(note);
+        if (accidental.equals("b"))
+            return chromatic.get((index + 11) % 12);
+    }
+    if (accidental.equals("#")) {
+        return chromatic.get((index + 1) % 12);
+    }
+    return note;
 }
