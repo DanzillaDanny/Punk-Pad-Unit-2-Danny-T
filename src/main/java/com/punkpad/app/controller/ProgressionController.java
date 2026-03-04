@@ -3,6 +3,7 @@ package com.punkpad.app.controller;
 import java.util.List;
 
 import com.punkpad.app.model.ChordProgression;
+import com.punkpad.app.service.ProgressionService;
 import com.punkpad.app.repository.ChordProgressionRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/progressions")
 public class ProgressionController {
     private final ChordProgressionRepository chordProgressionRepository;
+    private final ProgressionService progressionService;
 
-    public ProgressionController(ChordProgressionRepository chordProgressionRepository) {
+    public ProgressionController(ChordProgressionRepository chordProgressionRepository, ProgressionService progressionService) {
         this.chordProgressionRepository = chordProgressionRepository;
+        this.progressionService = progressionService;
+
+        @GetMapping("/generate")
+                public List<String> generateProgression(
+                        @RequestParam Long subGenreId,
+        @RequestParam String musicalKey) {
+                return progressionService.generateProgression(subGenreId, musicalKey);
     }
     //GET all progressions
     @GetMapping
