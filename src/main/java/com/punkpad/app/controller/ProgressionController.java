@@ -16,12 +16,13 @@ public class ProgressionController {
     public ProgressionController(ChordProgressionRepository chordProgressionRepository, ProgressionService progressionService) {
         this.chordProgressionRepository = chordProgressionRepository;
         this.progressionService = progressionService;
+    }
 
         @GetMapping("/generate")
                 public List<String> generateProgression(
-                        @RequestParam Long subGenreId,
+                        @RequestParam Long subGenre_Id,
         @RequestParam String musicalKey) {
-                return progressionService.generateProgression(subGenreId, musicalKey);
+                return progressionService.generateProgression(subGenre_Id, musicalKey);
     }
     //GET all progressions
     @GetMapping
