@@ -38,4 +38,21 @@ public class ProgressionService {
         }
         return chords;
     }
+    private List<String> buildMajorScale(String root) {
+        List<String> chromatic = List.of("C","C#", "D", "D#", "E", "F", "G", "G#", "A", "A#", "B");
+
+        int start = chromatic.indexOf(root);
+
+        if (start == -1) {
+            throw new IllegalArgumentException("Invalid key: " + root);
+        }
+        int[] majorSteps = {0,2,4, 5, 7, 9, 11};
+
+        List<String> scale = new ArrayList<>();
+
+        for (int step : majorSteps) {
+            scale.add(chromatic.get((start + step) % 12));
+        }
+        return scale;
+    }
 }
