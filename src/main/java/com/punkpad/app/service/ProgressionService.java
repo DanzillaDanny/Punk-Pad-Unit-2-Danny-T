@@ -1,4 +1,4 @@
-package service;
+package com.punkpad.app.service;
 
 import java.util.Random;
 import java.util.ArrayList;
@@ -8,12 +8,14 @@ import java.util.List;
 import com.punkpad.app.model.ProgressionPattern;
 import com.punkpad.app.model.ProgressionPatternStep;
 import com.punkpad.app.repository.ProgressionPatternRepository;
+import com.punkpad.app.repository.ProgressionPatternStepRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProgressionService {
-    public final ProgressionPatternRepository patternRepository;
-    private final ProgressionPatternRepository stepRepository;
-
-    public ProgressionService(ProgressionPatternRepository patternRepository, ProgressionPatternRepository stepRepository) {
+    private final ProgressionPatternRepository patternRepository;
+    private final ProgressionPatternStepRepository stepRepository;
+    public ProgressionService(ProgressionPatternRepository patternRepository, ProgressionPatternStepRepository stepRepository) {
         this.patternRepository = patternRepository;
         this.stepRepository = stepRepository;
     }
@@ -29,6 +31,7 @@ public class ProgressionService {
 
         List<String> scale = buildMajorScale(musicalKey);
         List<String> chords = new ArrayList<>();
+
         for (ProgressionPatternStep step : steps) {
             String note = resolveDegree(scale, step.getDegree(), step.getAccidental());
             chords.add(applyQuality(note, step.getQuality()));
