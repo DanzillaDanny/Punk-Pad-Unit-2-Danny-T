@@ -61,8 +61,8 @@ const Transport = ({
             disabled={!selectedGenre}
           >
             {safeSubGenres.map((subGenre) => (
-              <option key={subGenre} value={subGenre}>
-                {subGenre}
+              <option key={subGenre.id} value={subGenre.id}>
+                {subGenre.name}
               </option>
             ))}
           </select>
