@@ -1,86 +1,93 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Pedal from "./Pedal.jsx";
 import Transport from "./Transport.jsx";
-import CHORD_TEMPLATES from "./ChordTemplates.jsx";
-import RomanToChord from "./Theory.jsx";
 
-//the logic flow of the home page lives here so I can just use App.jsx for routing
+const Home = ({ setFavorites }) => {
 
-const Home = ({setFavorites}) => {
-  //state management (useState, useEffect, useMemo)
-  const initialGenreKey = Object.keys(CHORD_TEMPLATES)[0];
   const [progression, setProgression] = useState([]);
   const [bpm, setBpm] = useState(142);
   const [keySig, setKeySig] = useState("C");
-  const [selectedGenre, setSelectedGenre] = useState(initialGenreKey);
-  const [selectedSubGenre, setSelectedSubGenre] = useState('');
-  
-  //subGenres useMemo and useEffect logic
-    const subGenres = useMemo(() => {
-    return CHORD_TEMPLATES[selectedGenre] || {};
-  }, [selectedGenre]);
+
+  const [genres, setGenres] = useState([]);
+  const [subGenres, setSubGenres] = useState([]);
+
+  const [selectedGenreId, setSelectedGenreId] = useState("");
+  const [selectedSubGenreId, setSelectedSubGenreId] = useState("");
 
   useEffect(() => {
-    const firstSubGenreKey = Object.keys(subGenres) [0];
-    if (firstSubGenreKey) {
-      setSelectedSubGenre(firstSubGenreKey);
-    } else {
-      setSelectedSubGenre('');
-    }
-  }, [selectedGenre, subGenres]);
-
-  // handleSave function defined in the correct scope
-  const handleSave = () => {
-    if (progression.length === 0 || typeof progression === 'string' || progression.includes('Select a valid')) {
-        alert("Please generate a valid progression first.");
-        return;
-    }
-
-    const newFavorite = {
-        id: Date.now(), 
-        name: `${selectedGenre} - ${selectedSubGenre} in ${keySig}`, 
-        chords: progression 
+    const fetchGenres = async () => {
+      const response = await fetch("/genres");
+      const data = await response.json();
+      setGenres(data);
     };
-    
-    setFavorites(prevFavorites => [...prevFavorites, newFavorite]); 
-    alert("Progression added to favorites!");
-    console.log("Saving this object:", newFavorite);
-  };
-  
-  // generateProgression function defined in the correct scope
-  const generateProgression = () => {
-    if (selectedSubGenre && subGenres[selectedSubGenre]) {
-      const templates = subGenres[selectedSubGenre];
-      const randomIndex = Math.floor(Math.random() * templates.length);
-            
-      // Get the raw Roman numeral progression
-      const romanProgression = templates[randomIndex];
-      
-      // Convert the Roman numerals to actual chord letters
-      const chordLetters = romanProgression.map(roman => RomanToChord(roman, keySig));
-      
-      // Update the state with the final result
-      setProgression(chordLetters);
-      
-    } else {
-      setProgression(["Select a valid genre/sub-genre"]);
-    }
-  };  
 
-return (
+    fetchGenres();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedGenreId) return;
+
+    const fetchSubGenres = async () => {
+      const response = await fetch(`/genres/${selectedGenreId}/subgenres`);
+      const data = await response.json();
+      setSubGenres(data);
+    };
+
+    fetchSubGenres();
+  }, [selectedGenreId]);
+
+  const generateProgression = async () => {
+    if (!selectedSubGenreId) {
+      alert("Please select a sub-genre first.");
+      return;
+    }
+
+    const response = await fetch(
+      `/progressions/generate?subgenre_id=${selectedSubGenreId}&musicalKey=${keySig}`
+    );
+
+    const data = await response.json();
+    setProgression(data);
+  };
+
+  const handleSave = async () => {
+    if (!progression.length) {
+      alert("Please generate a progression first.");
+      return;
+    }
+
+    await fetch("/progressions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        musicalKey: keySig,
+        title: "Generated Progression",
+      }),
+    });
+
+    alert("Progression saved to favorites!");
+  };
+
+  return (
     <main className="container panel-wrap">
       <section className="panel">
-        <Pedal bpm={bpm} setBpm={setBpm} keySig={keySig} setKeySig={setKeySig} />
+        <Pedal
+          bpm={bpm}
+          setBpm={setBpm}
+          keySig={keySig}
+          setKeySig={setKeySig}
+        />
+
         <Transport
-          onSave={handleSave} // Passed Save handler correctly
+          onSave={handleSave}
           progression={progression}
           onGenerate={generateProgression}
-          genres={Object.keys(CHORD_TEMPLATES)}
-          subGenres={Object.keys(subGenres)}
-          selectedGenre={selectedGenre}
-          selectedSubGenre={selectedSubGenre}
-          onGenreChange={setSelectedGenre}
-          onSubGenreChange={setSelectedSubGenre}
+          genres={genres}
+          subGenres={subGenres}
+          selectedGenreId={selectedGenreId}
+          selectedSubGenreId={selectedSubGenreId}
+          onGenreChange={setSelectedGenreId}
+          onSubGenreChange={setSelectedSubGenreId}
         />
       </section>
     </main>
