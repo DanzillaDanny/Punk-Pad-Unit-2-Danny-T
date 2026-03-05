@@ -1,0 +1,50 @@
+.about-title {
+  padding-top: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.about-intro {
+  display: flex;
+  justify-content: center;
+}
+
+.about-subtitle {
+  display: flex;
+  justify-content: center;
+}
+
+.about-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5%;
+}
+
+.about-table th, .about-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.about-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.feature-list {
+  list-style-type: disc; 
+  margin-left: 20px;     
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.feature-list li {
+  margin-bottom: 10px;   
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.feature-list li strong {
+  color: #ff5733;
+}
+

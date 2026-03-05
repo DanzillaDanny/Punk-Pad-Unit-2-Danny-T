@@ -1,0 +1,117 @@
+.transport-window {
+  position: relative;
+  z-index: 10;
+  height: 120px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #0f1520 0%, #0b0f17 100%);
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, .6), 0 1px 0 rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .06);
+  display: flex;
+  flex-direction: column;
+  width: 60%;          
+  max-width: 800px;   
+  box-sizing: border-box;
+  margin: 0 auto 2rem; 
+  top: -380px;         
+}
+
+.transport-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  color: #ffffff;
+  background-color: transparent;
+  border-color: #ffffff;
+  padding: 8px 12px;
+}
+
+.center-generate-control {
+    margin-left: -70px; 
+}
+
+.genre-controls {
+  color: #ffffff;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background-color: transparent;
+  border-color: #000000;
+}
+
+.control-buttons {
+  z-index: 1000;
+  color: #ffffff;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.genre-controls select,
+.genre-controls button,
+.control-buttons button
+.center-generate-control-button,
+.transport-btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #0f1520; 
+  color: #ffffff;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, .3);
+  padding: 8px 12px; 
+  border-radius: 4px;
+  cursor: pointer;
+  box-sizing: border-box; 
+  height: fit-content;
+}
+
+.genre-controls select:hover,
+.genre-controls button:hover,
+.control-buttons button:hover {
+  border-color: #ffffff; 
+}
+
+
+.chord-display {
+  position: absolute;
+  top: 65%;
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  font-size: 60px; 
+  color: #ffffff;
+  text-align: center; 
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .transport-window {
+    position: relative;      
+    transform: translateX(-6.6%);     
+    top: -152px;              
+    width: 90.2%;               
+    height: 80px;
+  }
+
+  .transport-header-controls {
+    display: flex;
+    align-items: center;
+}
+
+  .genre-controls select,
+  .genre-controls button,
+  .control-buttons button,
+  .center-generate-control-button,
+  .transport-btn {
+    font-size: 8px;
+    padding: 2px;
+    max-width: 140px;
+  }
+
+  .chord-display {
+    font-size: 40px;          
+    top: 55%;
+  }
+}

@@ -1,0 +1,159 @@
+/* ===== Pedal base ===== */
+.pedal {
+  position: relative;
+  max-width: 878.57px;
+  aspect-ratio: 878.57 / 520;
+  width: 90%; 
+  height: auto;
+  margin: 40px auto 80px;
+  border-radius: 24px;
+  background: radial-gradient(circle at 20% 0%, #2fe86f 0%, #16a344 40%, #065022 100%);
+  background-size: 100% 100%; 
+  background-repeat: no-repeat; 
+
+  box-shadow:
+    0 40px 60px rgba(0, 0, 0, .35),
+    inset 0 2px 0 rgba(255, 255, 255, .06),
+    inset 0 -3px 0 rgba(0, 0, 0, .3);
+  border: 5px solid rgba(255, 255, 255, .06);
+
+  padding: 24px 22px 28px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pedal::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: rgba(255, 255, 255, .06);
+}
+
+.pedal-body {
+  flex-grow: 1;
+  display: block;
+  min-height: 150px;
+  padding-top: 20px;
+}
+
+.pedal-led {
+  position: absolute;
+  top: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #f75027 0%, #d15d2f 35%, #880606 100%);
+  box-shadow:
+    0 0 12px rgba(59, 255, 59, .6),
+    0 0 30px rgba(59, 255, 59, .35);
+  margin: 0 auto;
+  border: 2px solid #0a7a0a;
+}
+
+.pedal-led.off {
+  background: radial-gradient(circle at 30% 30%, #9aa3b2 0%, #5e6674 35%, #2e3542 100%);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .6);
+  border-color: #2e3542;
+}
+
+.pedal-stomp-wrap {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36px;
+}
+
+.pedal-stomp {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .12s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.pedal-stomp {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: #d9d9d9;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.pedal-stomp:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.pedal-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  gap: 10px;
+  color: #d8deea;
+  font-weight: 2200;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: 48px;
+}
+
+.fadedgradient {
+  -webkit-mask-image: linear-gradient(to right, black 50%, transparent 100%);
+  mask-image: linear-gradient(to right, black 50%, transparent 100%);
+}
+
+@media (max-width: 412px) {
+  .pedal {
+    top: 40%;
+    right: 6%;
+    width: 200%;
+    max-width: 340px;
+    height: auto;
+    /* aspect-ratio inherited from global definition */
+    background-size: 100% 100%;
+    margin: 16px auto 0;
+    padding: 16px 14px 60px;
+  }
+
+  .pedal-head {
+    transform: translateY(-5px);
+    height: auto;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .pedal-led {
+    top: 45px;
+  }
+
+  .pedal-stomp-wrap {
+    transform: scale(.65);
+    bottom: 5px;
+  }
+}
