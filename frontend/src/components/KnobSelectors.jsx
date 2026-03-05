@@ -17,7 +17,7 @@ const Knobs = ({
     angleMax = 135,
     disabled = false,
 }) => {
-    const clamp = (v) => Math.min(max, Math.max(min,v));
+    const clamp = (v) => Math.min(max, Math.max(min, v));
     const roundToStep = (v) => Math.round(v / step) * step;
 // percent across range
     const pct = (clamp(value) - min) / Math.max(1, (max-min));
@@ -93,7 +93,10 @@ const onKeyDown = (e) => {
     } else if (e.key === "End") {
         e.preventDefault();
         onChange(max);
-    }
+    } else if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
+    e.preventDefault();
+    onChange(clamp(roundToStep(value - step)));
+}
 };
 
 return (

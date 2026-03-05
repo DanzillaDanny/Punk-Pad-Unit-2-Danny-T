@@ -42,8 +42,7 @@ const Home = ({ setFavorites }) => {
       return;
     }
 
-    const response = await fetch(
-      `/progressions/generate?subgenre_id=${selectedSubGenreId}&musicalKey=${keySig}`
+    const response = await fetch(`/progressions/generate?subgenre_id=${selectedSubGenreId}&musicalKey=${keySig}`
     );
 
     const data = await response.json();
@@ -56,14 +55,18 @@ const Home = ({ setFavorites }) => {
       return;
     }
 
-    await fetch("/progressions", {
+    const response = await fetch("/progressions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        musicalKey: keySig,
         title: "Generated Progression",
+        musicalKey: keySig, 
       }),
     });
+
+    const saved = await response.json();
+
+    setFavorites(prev => [...prev, saved]);
 
     alert("Progression saved to favorites!");
   };
