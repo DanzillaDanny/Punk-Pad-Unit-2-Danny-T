@@ -44,9 +44,10 @@ const Transport = ({
             value={selectedGenre || ""}
             onChange={(e) => onGenreChange && onGenreChange(e.target.value)}
           >
+            <option value="">Select Genre</option>
             {safeGenres.map((genre) => (
-              <option key={genre} value={genre}>
-                {genre}
+              <option key={genre.id} value={genre.id}>
+                {genre.name}
               </option>
             ))}
           </select>
@@ -84,3 +85,4 @@ const Transport = ({
 };
 
 export default Transport;
+
