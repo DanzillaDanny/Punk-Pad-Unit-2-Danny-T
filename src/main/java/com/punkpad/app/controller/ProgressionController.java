@@ -45,3 +45,4 @@ public class ProgressionController {
         chordProgressionRepository.deleteById(id);
     }
 }
+
