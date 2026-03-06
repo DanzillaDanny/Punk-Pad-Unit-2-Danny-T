@@ -7,15 +7,17 @@ const Transport = ({
   onGenerate,
   genres,
   subGenres,
-  selectedGenre,
-  selectedSubGenre,
+  selectedGenreId,
+  selectedSubGenreId,
   onGenreChange,
   onSubGenreChange,
 }) => {
-  // ✅ Guard against undefined/null props
+  // Guard against undefined/null props
   const safeProgression = Array.isArray(progression) ? progression : [];
   const safeGenres = Array.isArray(genres) ? genres : [];
   const safeSubGenres = Array.isArray(subGenres) ? subGenres : [];
+
+  console.log("GENRES RECEIVED:", safeGenres);
 
   return (
     <div className="transport-window">
@@ -31,7 +33,7 @@ const Transport = ({
             </React.Fragment>
           ))
         ) : (
-          // could also show a message here instead of [] if you want
+   
           <span className="chord-empty">No chords yet</span>
         )}
       </div>
@@ -41,7 +43,7 @@ const Transport = ({
         <div className="genre-controls">
           {/* main genre dropdown */}
           <select
-            value={selectedGenre || ""}
+            value={selectedGenreId || ""}
             onChange={(e) => onGenreChange && onGenreChange(e.target.value)}
           >
             <option value="">Select Genre</option>
@@ -54,12 +56,13 @@ const Transport = ({
 
           {/* Sub-Genre Dropdown */}
           <select
-            value={selectedSubGenre || ""}
+            value={selectedSubGenreId || ""}
             onChange={(e) =>
               onSubGenreChange && onSubGenreChange(e.target.value)
             }
-            disabled={!selectedGenre}
+            disabled={!selectedGenreId}
           >
+            <option value="">Select Sub-Genre</option>
             {safeSubGenres.map((subGenre) => (
               <option key={subGenre.id} value={subGenre.id}>
                 {subGenre.name}

@@ -15,20 +15,17 @@ const Home = ({ setFavorites }) => {
   const [selectedSubGenreId, setSelectedSubGenreId] = useState("");
 
   useEffect(() => {
-    const fetchGenres = async () => {
-      const response = await fetch("/genres");
-      const data = await response.json();
-      setGenres(data);
-    };
-
-    fetchGenres();
+ fetch("/api/genres")
+      .then(res => res.json())
+      .then(data => setGenres(data))
+.catch(err => console.error(err));
   }, []);
 
   useEffect(() => {
     if (!selectedGenreId) return;
 
     const fetchSubGenres = async () => {
-      const response = await fetch(`/genres/${selectedGenreId}/subgenres`);
+      const response = await fetch(`/api/genres/${selectedGenreId}/subgenres`);
       const data = await response.json();
       setSubGenres(data);
     };
@@ -42,11 +39,16 @@ const Home = ({ setFavorites }) => {
       return;
     }
 
-    const response = await fetch(`/progressions/generate?subgenre_id=${selectedSubGenreId}&musicalKey=${keySig}`
-    );
+    try {
+      const response = await fetch(`/api/progressions/generate?subGenreId=${selectedSubGenreId}&musicalKey=${keySig}`);
 
     const data = await response.json();
+
     setProgression(data);
+  
+    } catch(error) {
+      console.error("Fetch failed:", error);
+    }
   };
 
   const handleSave = async () => {
@@ -55,7 +57,7 @@ const Home = ({ setFavorites }) => {
       return;
     }
 
-    const response = await fetch("/progressions", {
+    const response = await fetch("/api/progressions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
