@@ -1,12 +1,27 @@
 // src/components/Pedal.jsx
 import React, { useState } from "react";
 import Knobs from "./KnobSelectors.jsx";
+import Transport from "./Transport.jsx";
 import "./Pedal.css";
+
 
 const KEYS = ["C","C#","D","Eb","E","F","F#","G","Ab","A","Bb","B"];
 
-const Pedal = ({ bpm, setBpm, keySig, setKeySig }) => {
-  // make sure props won't blow us up
+const Pedal = ({
+   bpm, 
+   setBpm, 
+   keySig, 
+   setKeySig, 
+   progression, 
+   onGenerate, 
+   onSave, 
+   genres, 
+   subGenres,
+   selectedGenreId,
+   selectedSubGenreId, 
+   onGenreChange, 
+   onSubGenreChange }) => {
+
   const safeKeySig = KEYS.includes(keySig) ? keySig : "C";
   const safeBpm = typeof bpm === "number" ? bpm : 120;
 
@@ -20,6 +35,7 @@ const Pedal = ({ bpm, setBpm, keySig, setKeySig }) => {
   return (
     <div className="pedal">
       <div className="pedal-head">Punk Pad</div>
+      <div className={`pedal-led ${on ? "" : "off"}`}/>
 
       <div className="pedal-body">
         <div className="pedal-knobs">
@@ -30,7 +46,7 @@ const Pedal = ({ bpm, setBpm, keySig, setKeySig }) => {
             max={KEYS.length - 1}
             step={1}
             stops={KEYS.length}
-            onChange={(i) => setKeySig && setKeySig(KEYS[i])}
+            onChange={(i) => setKeySig(KEYS[i])}
             format={(i) => KEYS[i]}
             size="md"
           />
@@ -41,19 +57,26 @@ const Pedal = ({ bpm, setBpm, keySig, setKeySig }) => {
             min={80}
             max={300}
             step={1}
-            onChange={setBpm || (() => {})}
+            onChange={setBpm}
             size="md"
           />
-        </div>
       </div>
 
-      {/* LED hooked to `on` */}
-      <div className={`pedal-led ${on ? "" : "off"}`} />
+      <Transport
+          onSave={onSave}
+          progression={progression}
+          onGenerate={onGenerate}
+          genres={genres}
+          subGenres={subGenres}
+          selectedGenreId={selectedGenreId}
+          selectedSubGenreId={selectedSubGenreId}
+          onGenreChange={onGenreChange}
+          onSubGenreChange={onSubGenreChange}
+        />
+      </div>
 
-      {/* Simple stomp button – NO image for now */}
       <div className="pedal-stomp-wrap">
         <button
-          type="button"
           className="pedal-stomp"
           onClick={handleToggle}
           aria-pressed={on}

@@ -44,7 +44,7 @@ const Transport = ({
           {/* main genre dropdown */}
           <select
             value={selectedGenreId || ""}
-            onChange={(e) => onGenreChange && onGenreChange(e.target.value)}
+            onChange={(e) => onGenreChange && onGenreChange(Number(e.target.value))}
           >
             <option value="">Select Genre</option>
             {safeGenres.map((genre) => (
