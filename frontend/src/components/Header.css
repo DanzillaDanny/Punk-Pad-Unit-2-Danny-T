@@ -14,13 +14,8 @@ header {
 header .logo {
   display: block;
   margin: 0 auto;            
-  height: auto;     
-  max-width: 90%;     
-}
-
-header .logo {
-  max-width: 90%; 
   height: auto;
+  width: clamp(160px, 30vw, 420px);  
 }
 
 .buttons-container {
@@ -68,6 +63,6 @@ background-image: repeating-linear-gradient(
 
 .header-link:hover::before,
 .header-link:active::before{
-    width: 110%;
+    width: 105%;
     opacity: 0.95;
 }

@@ -2,14 +2,11 @@
 display: flex;
 flex-direction: column;
 min-height: auto;
-padding: 20px;
 
 position: relative;
-margin: -400px auto 40px;
 z-index: 100;  
 
-width: 85%;
-max-width: 800px;
+width: min(90%, 900px);
 min-height: 160px;
 padding: 15px;
 background: #0b0f17;
@@ -21,7 +18,6 @@ border-radius: 10px;
 
 .transport-header-controls {
   display: flex;
-flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 10px;

@@ -6,22 +6,22 @@ footer {
   display: flex;
   align-items: center; 
   justify-content: center;
+  flex-direction: column;
   padding: 10px 5%;
   box-sizing: border-box; 
 }
 
-.about {
+.about-link {
   text-decoration: none;
-  display: inline-block;
   padding: 8px 18px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
   color: #ffffff;
-  background-color: transparent;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.15s ease-in-out;
-  border: 2px solid #38ecd4; 
-  border-radius: 0; 
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+   transition: all 0.2s ease;
+}
+
+.about-link:hover {
+  color: #ff00ff;
 }

@@ -1,27 +1,21 @@
 /* ===== Pedal base ===== */
 .pedal {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 878.57px;
   aspect-ratio: 878.57 / 520;
-  width: 90%; 
-  height: auto;
   margin: 40px auto 80px;
   border-radius: 24px;
   background: radial-gradient(circle at 20% 0%, #2fe86f 0%, #16a344 40%, #065022 100%);
   background-size: 100% 100%; 
-  background-repeat: no-repeat; 
-
   box-shadow:
     0 40px 60px rgba(0, 0, 0, .35),
     inset 0 2px 0 rgba(255, 255, 255, .06),
     inset 0 -3px 0 rgba(0, 0, 0, .3);
   border: 5px solid rgba(255, 255, 255, .06);
-
-  padding: 24px 22px 28px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+padding: clamp(12px, 3vw, 24px) clamp(12px, 3vw, 22px) clamp(16px, 4vw, 28px);
 }
 
 .pedal::before {
@@ -35,8 +29,9 @@
 
 .pedal-body {
   flex-grow: 1;
-  display: block;
-  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 20px;
 }
 
@@ -115,10 +110,10 @@
   align-items: center;
   justify-content: center;
   height: 64px;
-  gap: 10px;
+  gap: 8px;
   color: #d8deea;
   font-weight: 2200;
-  letter-spacing: .04em;
+  letter-spacing: .03em;
   text-transform: uppercase;
   font-size: 48px;
 }

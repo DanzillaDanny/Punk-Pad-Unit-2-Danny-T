@@ -5,7 +5,7 @@ import "./Footer.css";
 const Footer = () => {
     return (
         <footer>
-                  <Link to= "/About" className="about">About</Link>
+                  <Link to= "/About" className="about-link">About</Link>
                <div>Punk Pad 2025</div>
         </footer>
     );

@@ -47,7 +47,6 @@ const handleDeleteFavorite = (id) => {
             onDelete={handleDeleteFavorite} onRename={handleRenameFavorite} />} /> 
           </Routes>
         <Footer />
-        <div className="spacer-bottom" />
       </div>
     </Router>
   );
