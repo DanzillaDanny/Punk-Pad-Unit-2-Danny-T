@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Pedal from "./Pedal.jsx";
-import Transport from "./Transport.jsx";
 
 const Home = ({ setFavorites }) => {
 
@@ -81,19 +80,18 @@ const Home = ({ setFavorites }) => {
           setBpm={setBpm}
           keySig={keySig}
           setKeySig={setKeySig}
-        />
 
-        <Transport
-          onSave={handleSave}
           progression={progression}
           onGenerate={generateProgression}
+          onSave={handleSave}
+
           genres={genres}
           subGenres={subGenres}
           selectedGenreId={selectedGenreId}
           selectedSubGenreId={selectedSubGenreId}
           onGenreChange={setSelectedGenreId}
           onSubGenreChange={setSelectedSubGenreId}
-        />
+        />  
       </section>
     </main>
   );
