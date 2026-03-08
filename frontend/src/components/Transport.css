@@ -65,6 +65,14 @@ margin-bottom: 20px;
 }
 
 
+.transport-status {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #35c46b;
+  padding: 4px 0 6px;
+}
+
 .chord-display {
   font-family: monospace;
   order: 2;

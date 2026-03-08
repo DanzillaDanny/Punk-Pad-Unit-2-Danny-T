@@ -3,12 +3,12 @@ import "./About.css";
 
 const About = () => {
     return(
-<main className="containter panel-wrap">
+<main className="container panel-wrap">
     <section className="panel about-panel">
         <h1 className="about-title">About Punk Pad!</h1>
         <p className="about-intro">Punk Pad is a virtual chord progression generator to help artists that love punk rock create songs fast.</p>
         <h2 className="about-subtitle">Built for Speed, Attitude, and Energy, and created to help punk musicians find their sound!</h2>
-        <h2 className="about-subtitle">Key Features</h2>
+        <h2 className="about-subtitle">KEY FEATURES:</h2>
         <table className="about-table">
             <thead>
                 <tr>

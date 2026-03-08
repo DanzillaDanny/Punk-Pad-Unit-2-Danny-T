@@ -23,10 +23,11 @@
   max-width: 900px;
   width: 100%;
   border-collapse: collapse;
-  margin-top: 5%;
+  margin: 40px auto;
 }
 
-.about-table th, .about-table td {
+.about-table th,
+.about-table td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
@@ -53,4 +54,5 @@
 .feature-list li strong {
   color: #ff5733;
 }
+
 

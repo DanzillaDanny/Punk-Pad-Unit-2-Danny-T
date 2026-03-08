@@ -1,63 +1,106 @@
-// src/components/Login.jsx
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./Auth.css";
+import React, { useState, useEffect } from "react";
+import Pedal from "./Pedal.jsx";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+const Home = ({ setFavorites }) => {
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  const [progression, setProgression] = useState([]);
+  const [bpm, setBpm] = useState(142);
+  const [keySig, setKeySig] = useState("C");
 
-    console.log("Login submitted:", { email, password });
-    navigate("/"); 
-  }
+  const [genres, setGenres] = useState([]);
+  const [subGenres, setSubGenres] = useState([]);
+
+  const [selectedGenreId, setSelectedGenreId] = useState("");
+  const [selectedSubGenreId, setSelectedSubGenreId] = useState("");
+
+  const [statusMsg, setStatusMsg] = useState("");
+
+  useEffect(() => {
+ fetch("/api/genres")
+      .then(res => res.json())
+      .then(data => setGenres(data))
+.catch(err => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    if (!selectedGenreId) return;
+
+    const fetchSubGenres = async () => {
+      const response = await fetch(`/api/genres/${selectedGenreId}/subgenres`);
+      const data = await response.json();
+      setSubGenres(data);
+    };
+
+    fetchSubGenres();
+  }, [selectedGenreId]);
+
+  const generateProgression = async () => {
+    if (!selectedSubGenreId) {
+      setStatusMsg("Select a sub-genre first.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/progressions/generate?subGenreId=${selectedSubGenreId}&musicalKey=${keySig}`);
+
+    const data = await response.json();
+
+    setProgression(data);
+    setStatusMsg("");
+
+    } catch(error) {
+      console.error("Fetch failed:", error);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!progression.length) {
+      setStatusMsg("Generate a progression first.");
+      return;
+    }
+
+    const response = await fetch("/api/progressions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: "Generated Progression",
+        musicalKey: keySig,
+      }),
+    });
+
+    const saved = await response.json();
+
+    setFavorites(prev => [...prev, saved]);
+
+    setStatusMsg("Saved to favorites!");
+    setTimeout(() => setStatusMsg(""), 3000);
+  };
 
   return (
-    <div className="auth-page">
-      <section className="auth-card">
-        <h2 className="auth-title">Log In</h2>
+    <main className="container panel-wrap">
+      <section className="panel">
+        <Pedal
+          bpm={bpm}
+          setBpm={setBpm}
+          keySig={keySig}
+          setKeySig={setKeySig}
 
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-group">
-            <label htmlFor="login-email">Email</label>
-            <input
-              type="email"
-              id="login-email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+          progression={progression}
+          onGenerate={generateProgression}
+          onSave={handleSave}
 
-          <div className="form-group">
-            <label htmlFor="login-password">Password</label>
-            <input
-              type="password"
-              id="login-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-            />
-          </div>
+          genres={genres}
+          subGenres={subGenres}
+          selectedGenreId={selectedGenreId}
+          selectedSubGenreId={selectedSubGenreId}
+          onGenreChange={setSelectedGenreId}
+          onSubGenreChange={setSelectedSubGenreId}
 
-          <button type="submit" className="auth-submit">
-            Log In
-          </button>
-        </form>
-
-        <p className="auth-footer">
-          No account?
-          <Link to="/Signup" className="auth-link">
-            Create Account
-          </Link>
-        </p>
+          statusMsg={statusMsg}
+        />
       </section>
-    </div>
+    </main>
   );
 };
 
-export default Login;
+export default Home;
