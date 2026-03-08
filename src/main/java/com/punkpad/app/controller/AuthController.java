@@ -1,11 +1,29 @@
 package com.punkpad.app.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.punkpad.app.model.User;
+import com.punkpad.app.repository.UserRepository;
+
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/api/auth")
 public class AuthController {
 
+    private final UserRepository userRepository;
 
+    public AuthController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody User loginRequest) {
+
+        return userRepository
+                .findByUsername(loginRequest.getUsername())
+                .orElseGet(() ->
+                        userRepository.save(new User(loginRequest.getUsername()))
+                );
+    }
 }
+
+

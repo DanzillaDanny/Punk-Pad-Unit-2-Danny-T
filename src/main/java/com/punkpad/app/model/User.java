@@ -1,9 +1,10 @@
 package com.punkpad.app.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "users")
@@ -19,9 +20,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChordProgression> chordProgressions = new ArrayList<>();
 
-    public User(){}
+    public User() {}
 
-    public User(String username){
+    public User(String username) {
         this.username = username;
     }
 
@@ -39,6 +40,5 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-
     }
 }
