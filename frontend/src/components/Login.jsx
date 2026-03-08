@@ -1,106 +1,90 @@
-import React, { useState, useEffect } from "react";
-import Pedal from "./Pedal.jsx";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Auth.css";
 
-const Home = ({ setFavorites }) => {
+const HARDCODED_EMAIL = "punk@punk.com";
+const HARDCODED_PASSWORD = "punk1234";
 
-  const [progression, setProgression] = useState([]);
-  const [bpm, setBpm] = useState(142);
-  const [keySig, setKeySig] = useState("C");
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState("");
+  const navigate = useNavigate();
 
-  const [genres, setGenres] = useState([]);
-  const [subGenres, setSubGenres] = useState([]);
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-  const [selectedGenreId, setSelectedGenreId] = useState("");
-  const [selectedSubGenreId, setSelectedSubGenreId] = useState("");
-
-  const [statusMsg, setStatusMsg] = useState("");
-
-  useEffect(() => {
- fetch("/api/genres")
-      .then(res => res.json())
-      .then(data => setGenres(data))
-.catch(err => console.error(err));
-  }, []);
-
-  useEffect(() => {
-    if (!selectedGenreId) return;
-
-    const fetchSubGenres = async () => {
-      const response = await fetch(`/api/genres/${selectedGenreId}/subgenres`);
-      const data = await response.json();
-      setSubGenres(data);
-    };
-
-    fetchSubGenres();
-  }, [selectedGenreId]);
-
-  const generateProgression = async () => {
-    if (!selectedSubGenreId) {
-      setStatusMsg("Select a sub-genre first.");
-      return;
-    }
-
-    try {
-      const response = await fetch(`/api/progressions/generate?subGenreId=${selectedSubGenreId}&musicalKey=${keySig}`);
-
-    const data = await response.json();
-
-    setProgression(data);
-    setStatusMsg("");
-
-    } catch(error) {
-      console.error("Fetch failed:", error);
-    }
-  };
-
-  const handleSave = async () => {
-    if (!progression.length) {
-      setStatusMsg("Generate a progression first.");
-      return;
-    }
-
-    const response = await fetch("/api/progressions", {
+ try {
+    const response = await fetch("/api/auth/login/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
-        title: "Generated Progression",
-        musicalKey: keySig,
-      }),
+        username: email
+      })
     });
 
-    const saved = await response.json();
+    if (!response.ok) {
+      throw new Error("Login failed");
+    }
 
-    setFavorites(prev => [...prev, saved]);
+    const user = await response.json();
 
-    setStatusMsg("Saved to favorites!");
-    setTimeout(() => setStatusMsg(""), 3000);
-  };
+    onLogin(user);
+    navigate("/UserAccountPage");
+
+  } catch (err) {
+    console.error(err);
+    setAuthError("Login failed.");
+  }
+}
 
   return (
-    <main className="container panel-wrap">
-      <section className="panel">
-        <Pedal
-          bpm={bpm}
-          setBpm={setBpm}
-          keySig={keySig}
-          setKeySig={setKeySig}
+    <div className="auth-page">
+      <section className="auth-card">
+        <h2 className="auth-title">Log In</h2>
 
-          progression={progression}
-          onGenerate={generateProgression}
-          onSave={handleSave}
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label htmlFor="login-email">Email</label>
+            <input
+              type="email"
+              id="login-email"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setAuthError(""); }}
+              required
+            />
+          </div>
 
-          genres={genres}
-          subGenres={subGenres}
-          selectedGenreId={selectedGenreId}
-          selectedSubGenreId={selectedSubGenreId}
-          onGenreChange={setSelectedGenreId}
-          onSubGenreChange={setSelectedSubGenreId}
+          <div className="form-group">
+            <label htmlFor="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setAuthError(""); }}
+              required
+              minLength={6}
+            />
+          </div>
 
-          statusMsg={statusMsg}
-        />
+          {authError && <p className="auth-error">{authError}</p>}
+
+          <button type="submit" className="auth-submit">
+            Log In
+          </button>
+        </form>
+
+        <p className="auth-footer">
+          No account?
+          <Link to="/signup" className="auth-link">
+            Create Account
+          </Link>
+        </p>
       </section>
-    </main>
+    </div>
   );
 };
 
-export default Home;
+export default Login;

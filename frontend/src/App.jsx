@@ -10,6 +10,7 @@ import UserAccountPage from "./components/UserAccountPage.jsx";
 
 
 const App = () => {
+const [currentUser, setCurrentUser] = useState(null);
 const [favorites, setFavorites] = useState([]);
 
 const handleDeleteFavorite = (id) => {
@@ -35,16 +36,38 @@ const handleDeleteFavorite = (id) => {
   <Router>
     <div className="page">
       <Header />
-      <Routes>
+        <Routes>
         <Route
           path="/"
-          element={<Home favorites={favorites} setFavorites={setFavorites} />}
-        />
+          element={
+          <Home
+            favorites={favorites}
+            setFavorites={setFavorites}
+            currentUser={currentUser}
+           />
+        }
+      />
         <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-            <Route path="/UserAccountPage" element={<UserAccountPage favorites={favorites} setFavorites={setFavorites} 
-            onDelete={handleDeleteFavorite} onRename={handleRenameFavorite} />} /> 
+          <Route
+            path="/login"
+            element={<Login setCurrentUser={setCurrentUser} />}
+          />
+            <Route
+            path="/signup"
+            element={<Signup setCurrentUser={setCurrentUser} />}
+          />
+            <Route
+              path="/UserAccountPage"
+              element={
+            <UserAccountPage
+              favorites={favorites}
+              setFavorites={setFavorites}
+              onDelete={handleDeleteFavorite}
+              onRename={handleRenameFavorite}
+              currentUser={currentUser}
+            />
+           }
+          />   
           </Routes>
         <Footer />
       </div>
