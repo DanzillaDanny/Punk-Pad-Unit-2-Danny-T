@@ -66,6 +66,7 @@ margin-bottom: 20px;
 
 
 .chord-display {
+  font-family: monospace;
   order: 2;
   display: flex;
 justify-content: center;

@@ -34,7 +34,7 @@ const Transport = ({
           ))
         ) : (
    
-          <span className="chord-empty">No chords yet</span>
+          <span className="chord-empty">0000</span>
         )}
       </div>
 
@@ -47,9 +47,9 @@ const Transport = ({
             onChange={(e) => onGenreChange && onGenreChange(Number(e.target.value))}
           >
             <option value="">Genre</option>
-            {safeGenres.map((genre) => (
-              <option key={genre.id} value={genre.id}>
-                {genre.name}
+            {safeGenres.map((genres) => (
+              <option key={genres.id} value={genres.id}>
+                {genres.name}
               </option>
             ))}
           </select>
