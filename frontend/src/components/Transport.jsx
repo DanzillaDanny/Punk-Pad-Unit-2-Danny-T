@@ -46,7 +46,7 @@ const Transport = ({
             value={selectedGenreId || ""}
             onChange={(e) => onGenreChange && onGenreChange(Number(e.target.value))}
           >
-            <option value="">Select Genre</option>
+            <option value="">Genre</option>
             {safeGenres.map((genre) => (
               <option key={genre.id} value={genre.id}>
                 {genre.name}
@@ -62,7 +62,7 @@ const Transport = ({
             }
             disabled={!selectedGenreId}
           >
-            <option value="">Select Sub-Genre</option>
+            <option value="">Sub-Genre</option>
             {safeSubGenres.map((subGenre) => (
               <option key={subGenre.id} value={subGenre.id}>
                 {subGenre.name}

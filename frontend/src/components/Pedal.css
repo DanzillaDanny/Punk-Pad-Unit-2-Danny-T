@@ -61,15 +61,14 @@ padding: clamp(12px, 3vw, 24px) clamp(12px, 3vw, 22px) clamp(16px, 4vw, 28px);
 .pedal-stomp-wrap {
   display: grid;
   place-items: center;
-  position: absolute;
   left: 0;
   right: 0;
   bottom: 36px;
 }
 
 .pedal-stomp {
-  width: 56px;
-  height: 56px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   cursor: pointer;
   transition: transform .06s ease, box-shadow .12s ease;
