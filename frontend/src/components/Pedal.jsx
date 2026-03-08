@@ -1,5 +1,5 @@
 // src/components/Pedal.jsx
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Knobs from "./KnobSelectors.jsx";
 import Transport from "./Transport.jsx";
 import "./Pedal.css";
@@ -25,12 +25,30 @@ const Pedal = ({
   const safeKeySig = KEYS.includes(keySig) ? keySig : "C";
   const safeBpm = typeof bpm === "number" ? bpm : 120;
 
-  const [on, setOn] = useState(true);
+  const [on, setOn] = useState(false);
+
+  const clickRef = useRef(null);
+
+  useEffect(() => {
+    clickRef.current = new Audio("/audio/click-80bpm.mp3");
+    clickRef.current.loop = true;
+  }, []);
 
   const handleToggle = () => {
-    setOn((prev) => !prev);
-    console.log("Pedal on?", !on);
-  };
+    const newState = !on;
+    setOn(newState);
+   
+    if (clickRef.current) {
+    if (newState) {
+      clickRef.current.currentTime = 0;
+      clickRef.current.play();
+    } else {
+      clickRef.current.pause();
+    }
+  }
+
+  console.log("Pedal on?", newState);
+};
 
   return (
     <div className="pedal">
@@ -40,7 +58,7 @@ const Pedal = ({
       <div className="pedal-body">
         <div className="pedal-knobs">
           <Knobs
-            label="Key"
+            label="KEY"
             value={Math.max(0, KEYS.indexOf(safeKeySig))}
             min={0}
             max={KEYS.length - 1}
@@ -81,7 +99,7 @@ const Pedal = ({
           onClick={handleToggle}
           aria-pressed={on}
         >
-          {on ? "ON" : "OFF"}
+          {on ? "CLICK ON" : "CLICK OFF"}
         </button>
       </div>
     </div>
