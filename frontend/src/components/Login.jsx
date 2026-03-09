@@ -30,8 +30,8 @@ setLoading(true);
     });
 
     if (!response.ok) {
-      const response = await response.json().catch(() => ({}));
-      throw new Error(e.error ||"Login failed");
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error ||"Login failed");
     }
 
     const user = await response.json();
@@ -39,33 +39,11 @@ setLoading(true);
     navigate("/UserAccountPage");
   } catch (err) {
     console.error(err);
-    setAuthError(e.message || "Login failed.");
+    setAuthError(err.message || "Login failed.");
+  } finally {
+    setLoading(false);
   }
-
-  setLoading(true);
-  try {
-  const response = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json"},
-    credentials: "include",
-    body: JSON.stringify({ username: trimmed }),
-  });
-
-  if (!response.ok) {
-    const err = await response.json().catch(() => ({}));
-    throw new Error(err.error || "Login failed");
-  }
-
-      const user = await response.json();
-      onLogin(user);
-      navigate("/UserAccountPage");
-    } catch (err) {
-      console.error(err);
-      setAuthError(err.message || "Login failed.");
-    } finally {
-      setLoading(false);
-    }
-  }
+}
 
 return (
     <div className="auth-page">

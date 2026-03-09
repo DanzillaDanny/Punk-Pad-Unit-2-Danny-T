@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
@@ -12,6 +12,13 @@ import UserAccountPage from "./components/UserAccountPage.jsx";
 const App = () => {
 const [currentUser, setCurrentUser] = useState(null);
 const [favorites, setFavorites] = useState([]);
+
+useEffect(() => {
+  fetch("/api/auth/me", { credentials: "include" })
+    .then(res => res.ok ? res.json() : null)
+    .then(user => { if (user) setCurrentUser(user); })
+    .catch(() => {});
+}, []);
 
 const handleDeleteFavorite = (id) => {
     const updatedFavorites = favorites.filter(fav => fav.id !== id);
@@ -50,7 +57,7 @@ const handleDeleteFavorite = (id) => {
         <Route path="/about" element={<About />} />
           <Route
             path="/login"
-            element={<Login setCurrentUser={setCurrentUser} />}
+            element={<Login onLogin={setCurrentUser} />}
           />
             <Route
             path="/signup"

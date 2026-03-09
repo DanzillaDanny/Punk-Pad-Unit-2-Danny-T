@@ -11,13 +11,12 @@ const Transport = ({
   selectedSubGenreId,
   onGenreChange,
   onSubGenreChange,
+  statusMsg,
 }) => {
   // Guard against undefined/null props
   const safeProgression = Array.isArray(progression) ? progression : [];
   const safeGenres = Array.isArray(genres) ? genres : [];
   const safeSubGenres = Array.isArray(subGenres) ? subGenres : [];
-
-  console.log("GENRES RECEIVED:", safeGenres);
 
   return (
     <div className="transport-window">
@@ -47,9 +46,9 @@ const Transport = ({
             onChange={(e) => onGenreChange && onGenreChange(Number(e.target.value))}
           >
             <option value="">Genre</option>
-            {safeGenres.map((genres) => (
-              <option key={genres.id} value={genres.id}>
-                {genres.name}
+            {safeGenres.map((genre) => (
+              <option key={genre.id} value={genre.id}>
+                {genre.name}
               </option>
             ))}
           </select>
@@ -58,7 +57,7 @@ const Transport = ({
           <select
             value={selectedSubGenreId || ""}
             onChange={(e) =>
-              onSubGenreChange && onSubGenreChange(e.target.value)
+              onSubGenreChange && onSubGenreChange(Number(e.target.value))
             }
             disabled={!selectedGenreId}
           >
@@ -83,6 +82,7 @@ const Transport = ({
           </button>
         </div>
       </div>
+      {statusMsg && <span className="transport-status">{statusMsg}</span>}
     </div>
   );
 };

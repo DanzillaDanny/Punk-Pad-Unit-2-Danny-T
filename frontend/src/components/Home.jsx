@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Pedal from "./Pedal.jsx";
 
-const Home = ({ setFavorites }) => {
+const Home = ({ setFavorites, currentUser }) => {
 
   const [progression, setProgression] = useState([]);
   const [bpm, setBpm] = useState(142);
@@ -12,6 +12,8 @@ const Home = ({ setFavorites }) => {
 
   const [selectedGenreId, setSelectedGenreId] = useState("");
   const [selectedSubGenreId, setSelectedSubGenreId] = useState("");
+
+  const [statusMsg, setStatusMsg] = useState("");
 
   useEffect(() => {
  fetch("/api/genres")
@@ -34,7 +36,7 @@ const Home = ({ setFavorites }) => {
 
   const generateProgression = async () => {
     if (!selectedSubGenreId) {
-      alert("Please select a sub-genre first.");
+      setStatusMsg("Select a sub-genre first.");
       return;
     }
 
@@ -44,32 +46,47 @@ const Home = ({ setFavorites }) => {
     const data = await response.json();
 
     setProgression(data);
-  
+    setStatusMsg("");
+
     } catch(error) {
       console.error("Fetch failed:", error);
     }
   };
 
   const handleSave = async () => {
-    if (!progression.length) {
-      alert("Please generate a progression first.");
+
+    if (!currentUser) {
+      setStatusMsg("Please log in to save progressions.");
       return;
     }
 
-    const response = await fetch("/api/progressions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: "Generated Progression",
-        musicalKey: keySig, 
-      }),
-    });
+    if (!progression.length) {
+      setStatusMsg("Generate a progression first.");
+      return;
+    }
 
-    const saved = await response.json();
+    try {
 
-    setFavorites(prev => [...prev, saved]);
+      const response = await fetch("/api/progressions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: "Generated Progression",
+          musicalKey: keySig,
+          userId: currentUser.id
+        }),
+      });
 
-    alert("Progression saved to favorites!");
+      const saved = await response.json();
+
+      setFavorites(prev => [...prev, saved]);
+
+      setStatusMsg("Saved to favorites!");
+      setTimeout(() => setStatusMsg(""), 3000);
+
+    } catch (error) {
+      console.error("Save failed:", error);
+    }
   };
 
   return (
@@ -91,7 +108,9 @@ const Home = ({ setFavorites }) => {
           selectedSubGenreId={selectedSubGenreId}
           onGenreChange={setSelectedGenreId}
           onSubGenreChange={setSelectedSubGenreId}
-        />  
+
+          statusMsg={statusMsg}
+        />
       </section>
     </main>
   );
