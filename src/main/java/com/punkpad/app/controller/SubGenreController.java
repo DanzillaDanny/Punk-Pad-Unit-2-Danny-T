@@ -7,7 +7,7 @@ import com.punkpad.app.model.SubGenre;
 import com.punkpad.app.repository.SubGenreRepository;
 
 @RestController
-@RequestMapping("/genres/{genreId}/subgenres")
+@RequestMapping("/api/genres/{genreId}/subgenres")
 public class SubGenreController {
 
     private final SubGenreRepository subGenreRepository;

@@ -11,7 +11,7 @@ import com.punkpad.app.model.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/progressions")
+@RequestMapping("/api/progressions")
 public class ProgressionController {
     private final ChordProgressionRepository chordProgressionRepository;
     private final ProgressionService progressionService;

@@ -48,7 +48,7 @@ public class ChordProgression {
         return title;
     }
 
-    public String getMusicalKeyKey() {
+    public String getMusicalKey() {
         return musicalKey;
     }
 
