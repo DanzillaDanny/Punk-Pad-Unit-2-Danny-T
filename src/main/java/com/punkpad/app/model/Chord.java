@@ -16,11 +16,11 @@ public class Chord {
     @Column(nullable = false)
     private String quality;
 
-    @JoinColumn(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String displayName;
 
     public Chord(){}
-    public Chord(String chordName, int positionIndex) {
+    public Chord(String rootNote,String quality, String displayName) {
         this.rootNote = rootNote;
         this.quality = quality;
         this.displayName = displayName;
