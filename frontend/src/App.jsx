@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Header from "./layout/Header.jsx";
+import Footer from "./layout/Footer.jsx";
 import Home from "./components/Home.jsx";
 import About from "./components/About.jsx";
 import Login from "./components/Login.jsx";

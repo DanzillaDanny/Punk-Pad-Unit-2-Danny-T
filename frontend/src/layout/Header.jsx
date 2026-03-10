@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import desktopLogo from "./desktopLogo.png";
+import desktopLogo from "../components/desktopLogo.png";
 import "./Header.css";
 
 const Header = ({ isLoggedIn, onLogout }) => {

@@ -44,7 +44,7 @@ const UserAccountPage = ({ favorites, onDelete, onRename, onReorder, currentUser
     <div className="auth-page">
       <section className="auth-card">
         <h2 className="auth-title">
-          {currentUser ? `${currentUser.name}'s` : "My"} Favorite Progressions
+        {currentUser ? `${currentUser.username}'s` : "My"} Favorite Progressions
         </h2>
 
         {favorites.length > 0 ? (
@@ -68,7 +68,7 @@ const UserAccountPage = ({ favorites, onDelete, onRename, onReorder, currentUser
                     style={{ marginRight: "8px" }}
                   />
                 ) : (
-                  <span>{prog.name} ({prog.chords ? prog.chords.join(" | ") : ""})</span>
+                  <span>{prog.title} ({prog.chords ? prog.chords.join(" | ") : ""})</span>
                 )}
                 <button
                   type="button"

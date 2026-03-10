@@ -8,17 +8,28 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(e) {
+  e.preventDefault();
 
-    if (password !== confirm) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    console.log("Signup submitted:", { email, password });
-
+  if (password !== confirm) {
+    alert("Passwords do not match.");
+    return;
   }
+
+  const response = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username: email
+    })
+  });
+
+  const user = await response.json();
+
+  console.log("Logged in user:", user);
+}
 
   return (
     <div className="auth-page">
