@@ -1,9 +1,11 @@
 package com.punkpad.app.controller;
 
-import com.punkpad.app.model.User;
+import com.punkpad.app.model.UserProfile;
 import com.punkpad.app.dto.LoginRequest;
-import com.punkpad.app.repository.UserRepository;
+import com.punkpad.app.repository.UserProfileRepository;
+
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +15,9 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final UserRepository userRepository;
+    private final UserProfileRepository userRepository;
 
-    public AuthController(UserRepository userRepository) {
+    public AuthController(UserProfileRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -36,8 +38,11 @@ public class AuthController {
                     .body(Map.of("error", "Username too long"));
         }
 
-        User user = userRepository.findByUsername(normalizedUsername)
-                .orElseGet(() -> userRepository.save(new User(normalizedUsername)));
+        UserProfile user = userRepository.findByUsername(normalizedUsername)
+                .orElseGet(() -> {
+                    UserProfile newUser = new UserProfile(normalizedUsername);
+                    return userRepository.save(newUser);
+                });
 
         session.setAttribute("userId", user.getId());
         session.setAttribute("username", user.getUsername());
@@ -66,7 +71,9 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
+
         session.invalidate();
+
         return ResponseEntity.ok(Map.of("message", "Logged out"));
     }
 }

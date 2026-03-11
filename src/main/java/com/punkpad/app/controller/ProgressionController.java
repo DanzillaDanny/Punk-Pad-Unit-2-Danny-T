@@ -1,13 +1,14 @@
 package com.punkpad.app.controller;
 
+import java.security.Principal;
 import java.util.List;
-import java.util.Map;
+import com.punkpad.app.dto.SaveProgressionRequest;
 
 import com.punkpad.app.model.ChordProgression;
-import com.punkpad.app.repository.UserRepository;
+import com.punkpad.app.repository.UserProfileRepository;
 import com.punkpad.app.service.ProgressionService;
 import com.punkpad.app.repository.ChordProgressionRepository;
-import com.punkpad.app.model.User;
+import com.punkpad.app.model.UserProfile;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class ProgressionController {
     private final ChordProgressionRepository chordProgressionRepository;
     private final ProgressionService progressionService;
-    private final UserRepository userRepository;
+    private final UserProfileRepository userProfileRepository;
 
     public ProgressionController(ChordProgressionRepository chordProgressionRepository,
-                                 ProgressionService progressionService, UserRepository userRepository) {
+                                 ProgressionService progressionService, UserProfileRepository userProfileRepository) {
         this.chordProgressionRepository = chordProgressionRepository;
         this.progressionService = progressionService;
-        this.userRepository = userRepository;
+        this.userProfileRepository = userProfileRepository;
     }
 
         @GetMapping("/generate")
@@ -42,18 +43,18 @@ public class ProgressionController {
     }
     // Save new progression
     @PostMapping
-    public ChordProgression createProgression(@RequestBody Map<String, Object> body) {
+    public ChordProgression createProgression(
+            @RequestBody SaveProgressionRequest request,
+            Principal principal) {
 
-        String title = (String) body.get("title");
-        String musicalKey = (String) body.get("musicalKey");
-        Long userId = Long.valueOf(body.get("userId").toString());
+        String username = principal.getName();
 
-        User user = userRepository.findById(userId)
+        UserProfile user = userProfileRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         ChordProgression progression = new ChordProgression();
-        progression.setTitle(title);
-        progression.setMusicalKey(musicalKey);
+        progression.setTitle(request.getTitle());
+        progression.setMusicalKey(request.getMusicalKey());
         progression.setUser(user);
 
         return chordProgressionRepository.save(progression);
@@ -65,4 +66,3 @@ public class ProgressionController {
         chordProgressionRepository.deleteById(id);
     }
 }
-

@@ -21,7 +21,7 @@ public class ChordProgression {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserProfile user;
 
     @ManyToOne
     @JoinColumn(name = "sub_genre_id", nullable = false)
@@ -53,7 +53,7 @@ public class ChordProgression {
     }
 
 
-    public User getUser() {
+    public UserProfile getUser() {
         return user;
     }
 
@@ -77,7 +77,7 @@ public class ChordProgression {
         this.musicalKey = musicalKey;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserProfile user) {
         this.user = user;
     }
 
