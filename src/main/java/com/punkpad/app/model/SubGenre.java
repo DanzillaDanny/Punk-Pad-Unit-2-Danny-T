@@ -19,8 +19,7 @@ public class SubGenre {
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;
 
-    public SubGenre() {
-    }
+    public SubGenre() {}
 
     public SubGenre(String name, Genre genre) {
         this.name = name;

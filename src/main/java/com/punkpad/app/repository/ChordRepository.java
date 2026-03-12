@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ChordRepository extends JpaRepository<ChordProgression, Long> {
+public interface ChordRepository extends JpaRepository<Chord, Integer> {
 }

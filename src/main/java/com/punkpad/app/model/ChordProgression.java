@@ -11,7 +11,7 @@ public class ChordProgression {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     private String title;
@@ -27,6 +27,8 @@ public class ChordProgression {
     @JoinColumn(name = "sub_genre_id", nullable = false)
     private SubGenre subGenre;
 
+    public ChordProgression() {};
+
 
     @ManyToMany
     @JoinTable(
@@ -40,7 +42,7 @@ public class ChordProgression {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

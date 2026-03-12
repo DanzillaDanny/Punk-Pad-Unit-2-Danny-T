@@ -8,7 +8,7 @@ public class Chord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        private int id;
 
     @Column(nullable=false)
     private String rootNote;
@@ -26,7 +26,7 @@ public class Chord {
         this.displayName = displayName;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 

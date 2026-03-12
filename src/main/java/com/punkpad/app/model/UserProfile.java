@@ -1,5 +1,6 @@
 package com.punkpad.app.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,7 +13,6 @@ import java.sql.Timestamp;
 
 
 @Entity
-@Table(name = "user_profile")
 public class UserProfile{
 
     @Id
@@ -22,11 +22,9 @@ public class UserProfile{
     @Column(unique = true)
     private String email;
 
-    @Column(unique = true)
     private String username;
 
     private String password;
-
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -35,17 +33,19 @@ public class UserProfile{
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<ChordProgression> chordProgressions = new ArrayList<>();
 
-    protected UserProfile() {
-        // JPA requirement
-    }
+    public UserProfile() {}
 
-    public UserProfile(String username, String email, String password) {
+    public UserProfile(String username, String email, String password, Timestamp createdAt, Timestamp updatedAt, Long id) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.id = id;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
     }
 
     public UserProfile(String username) {
